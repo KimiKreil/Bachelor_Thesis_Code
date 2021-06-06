@@ -1,0 +1,124 @@
+\documentclass[11 pt, titlepage]{article}
+\usepackage[english]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[text={165mm,215mm}]{geometry}  %Størrelse på effektiv papir
+\usepackage{abstract}
+\usepackage{amsmath}
+
+%Physics packages
+\usepackage{physics}
+\usepackage{tikz}
+\usepackage{siunitx}
+\usepackage{xfrac}
+
+%Appendix
+\usepackage[title, titletoc]{appendix}
+
+%Figure packages
+\usepackage{graphicx}
+\usepackage{wrapfig}
+\usepackage[font={small}, labelsep = period, labelfont=bf]{caption}
+\usepackage{subcaption}
+\usepackage{setspace}
+
+%Linjeafstande
+\setlength{\parindent}{0em}
+\setlength{\parskip}{0em}
+\linespread{1.15}
+
+%Litteraturliste og fodnoter
+\usepackage[autostyle]{csquotes}
+\usepackage[bibstyle=numeric, sorting=none, citestyle=numeric,backend=biber,abbreviate=true, block=none]{biblatex}
+\setlength\bibitemsep{\baselineskip}
+\bibliography{references.bib}
+\addbibresource{references.bib}
+\renewcommand{\intitlepunct}{ }
+\renewcommand*{\subtitlepunct}{ - }
+\usepackage[marginal,bottom]{footmisc}
+
+% Frontpage text
+\title{\vspace{2.7 cm}\\
+\textbf{\LARGE{A Shot in the Dark: Finding Heavily Obscured Galaxies in Multi-Wavelength Surveys}} 
+\\
+\vspace{2 cm}
+\Large{Bachelor Thesis}
+\\
+\vspace{1 cm}
+\large{Supervised by Iary Davidzon,\\ Francesco Maria Valentino \\ and Johan Peter Uldall Fynbo }}
+\author{\vspace{1 cm} \\ Kimi Cardoso Kreilgaard}
+\date{Submission Date \\ 16.06.2021}
+
+% Front page background
+\usepackage{eso-pic}
+\newcommand\BackgroundPic{%
+\put(0,0){%
+\parbox[b][\paperheight]{\paperwidth}{%
+\vfill
+\centering
+\includegraphics[width=\paperwidth,height=\paperheight]{ku-front.pdf}%
+\vfill
+}}}
+
+% Table of contents and sections
+\usepackage{tocloft}
+\renewcommand{\cftsecleader}{\cftdotfill{\cftdotsep}}
+
+
+%-------------------------------------------------------------------------------
+\begin{document}
+
+% Make frontpage
+\AddToShipoutPicture*{\BackgroundPic} 
+\maketitle
+
+% Acknowledgements and Abstract 
+\pagenumbering{roman} %romerske sidetal
+\renewcommand{\abstractname}{Acknowledgements}
+\begin{abstract}
+\thispagestyle{plain}
+\pagenumbering{roman}
+\setcounter{page}{1}
+\input{1Acknowledgements}
+\end{abstract}
+\pagebreak \clearpage
+
+\renewcommand{\abstractname}{Abstract}
+\addcontentsline{toc}{section}{Abstract}
+\begin{abstract}
+\thispagestyle{plain}
+\pagenumbering{roman}
+\setcounter{page}{2}
+\input{1Abstract}
+\end{abstract}
+
+%Contentline
+\newpage \clearpage
+\thispagestyle{plain}
+\pagenumbering{roman}
+\setcounter{page}{3}
+\tableofcontents
+
+\newpage
+%%%% DOCUMENT INPUT %%%%
+\pagenumbering{arabic} %sidetal
+\input{2Introduction.tex}
+\input{3Method.tex}
+\input{4Results.tex}
+\input{5Discussion.tex}
+\input{6Conclusion.tex}
+%%%% No more document input %%%%
+
+% Bibliography
+\newpage
+\addcontentsline{toc}{section}{References}
+\printbibliography[title=References]
+
+
+%\newpage
+%\begin{appendices}
+%\pagenumbering{roman} %sidetal
+%\input{9.AppendixA}
+%\end{appendices}
+
+
+\end{document}
