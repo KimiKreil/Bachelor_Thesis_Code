@@ -1,8 +1,26 @@
 \section{Method}
+\subsection{Fitting Models to Galaxy Profiles in Order to Create a Residual Map}
+First of all: find better subtitles.
+\begin{itemize}
+    \item Describe (very briefly) how the FARMER model parameters are found and adding a reference to Johns paper - something something with many gaussians.
+    \item Describe (again briefly) what the Sersic profile is.
+    \item Describe the 5 models we use (exponential, devaucouleur, point source etc.)
+    \item Describe the convolution with the psf and why we do it.
+    \item Describe how this combined into a residual map, and what we can use it for.
+\end{itemize}
 
-SEP: mask 'corrupted areas of the image', run the algorithm etc
+\subsection{Source Detection}
+\begin{itemize}
+    \item Describe (very briefly) how SEP works to extract sources.
+    \item How does aperture photometry work.
+    \item How to create a catalogue containing sources found in the residual map. Matched objects will be included due to imperfections in the residual map, but other more faint objects will also appear. Aperture photometry in original images in different bands provide flux for the object in H, Ks, ch1 and ch2 bands.
+\end{itemize}
 
-Tractor [ask Iary to read John's paper] -- modelling galaxies+PSF, 
-and subtract them to 'clean' the image
-
-t-SNE: how it works... pedagogical example with hadnwritten digits...
+\subsection{Classification with Semi-supervised ML}
+\begin{itemize}
+    \item Describe how t-SNE works referring to the original article \cite{Maaten_2008_tSNE} and how it can be used to visualize our data.
+    \item Parameter optimization - perplexity = trade of between local and global structures, what is most important here. Visual inspection of options, has to be done for new data. Training and validation data is mapped simulataneously - if new data has to be done again. Description on this is found in \cite{Steinhardt_2020}
+    \item Describe our use of tracers that were found by visual inspection. Looking to the detected objects in the different bands we could see if they looked like H-dropout candidates. We assigned good labels to these. \textcolor{red}{Either here or perhaps in the introduction we should describe how we expect the candidates to look like, what features are we looking for when we visually inspect them}
+    \item Describe the classification part: K nearest neighbour voting based on the euclidean distance. Elaborate on this choice: we also tried using all neighbours within a radius but due to the t-SNE embedding that essentially projects a higher dimensional manifold into 2d the distances are not necessarily euclidean, different regions has different densities. Varying the fraction of votes "for" to produce ROC curve.
+    \item Score metric: ROC curve and AUC, accuracy, and purity/contamination rate.
+\end{itemize}

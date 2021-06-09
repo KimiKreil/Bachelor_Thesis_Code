@@ -1,11 +1,17 @@
 \section{Discussion}
+\begin{itemize}
+    \item What are pros and cons of the Farmer method? Is the Farmer residual image better than Iary's old one?
+    \item Is ML really better than visual classification? pros and cons of t-SNE.
+    \begin{itemize}
+        \item They work together since we do need some tracers to be able to classify anything.
+        \item PRO: ML is significantly faster. Reduces the sample to look at.
+        \item CON: not a direct pipeline, the t-SNE embedding has to be reconfigured everytime we add new data. Does run quite fast so not an imediate problem.
+        \item PRO: We used t-SNE on not the most optimal data. Perhaps it will perform better with a better and more robust residual map than can be developed from the farmer catalogue.
+        \item PRO: if we design the labeling of tracers for this purpose, i.e. also labeling bad candidates it might perform a little better. (not sure about this one but worth looking into)
+        \item PRO: we can chose the sensitivity. Do we want a larger sample with more contamination or a pure smaller sample. Easy to make that choice in ML, just changing fmin, and we can chose which result we want to use depending on the application.
+    \end{itemize}
+    \item How the COSMOS dropout galaxies look like? (eg colors, etc) Do they "agree" with previously discovered droupouts? Compare to results from \cite{Wang_2019} and \cite{Alcalde_Pampliega_2019}
+    \item A very quick discussion/speculation about how these objects fit into the "big picture" of galaxy evolution.
+\end{itemize}
 
-- What are pros and cons of the Farmer method? Is the Farmer residual image better than Iary's old one?
-
-- Is ML really better than visual classification? pros and cons of t-SNE.
-
-- How the COSMOS dropout galaxies look like? (eg colors, etc) 
-Do they ``agree'' with previously discovered droupouts?
-
-- A very quick discussion/speculation about how these objects fit into the "big picture" of galaxy evolution. 
 
