@@ -31,6 +31,14 @@
     \item Show the results on the chosen perplexity. Main plot = t-SNE embedding where the matched objects, good candidates and fluxes above some threshold is colormapped. This allows us to mark three regions, and we display cutouts from at least one object in each region as subplots around the embedding plot.
 \end{itemize}
 
+\begin{figure}[h!]
+    \centering
+    \includegraphics[trim={5cm 3cm 5cm 3cm},clip,width=\textwidth]{Code/Saved_Figures/peplex_Ks_ch1.pdf}
+    \caption{hi}
+    \label{embeddding_ks_ch1}
+\end{figure}
+Perplexity 40 is chosen since the result is a nice cluster with clearly seperated blue and red galaxies (see figure \ref{embeddding_ks_ch1}). Additionally the n-iter ended up 6349 whcih is less than max-iter of 10000, meaning that the embedding converged. Peplexity 100 also converged but the original paper \cite{Maaten_2008_tSNE} suggests choosing perplexities between 5 and 50.
+
 \subsection{Classification / Identifying Promising Candidates}
 \begin{itemize}
     \item Show the classifications on the embedding. Two subplots, one showing the embedding colores according to the labels that are known to the algorithm and one according to the predicted labels.
