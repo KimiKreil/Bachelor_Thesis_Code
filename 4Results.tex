@@ -32,12 +32,20 @@
 \end{itemize}
 
 \begin{figure}[h!]
-    \centering
-    \includegraphics[trim={5cm 3cm 5cm 3cm},clip,width=\textwidth]{Code/Saved_Figures/peplex_Ks_ch1.pdf}
+    \centering %left, lower, right, upper
+    \includegraphics[trim={5cm 0cm 5cm 0.5cm},clip,width=\textwidth]{Code/Saved_Figures/peplex_Ks_ch1_SMALL.pdf}
     \caption{hi}
-    \label{embeddding_ks_ch1}
+    \label{SMALL_embeddding_ks_ch1}
 \end{figure}
-Perplexity 40 is chosen since the result is a nice cluster with clearly seperated blue and red galaxies (see figure \ref{embeddding_ks_ch1}). Additionally the n-iter ended up 6349 whcih is less than max-iter of 10000, meaning that the embedding converged. Peplexity 100 also converged but the original paper \cite{Maaten_2008_tSNE} suggests choosing perplexities between 5 and 50.
+
+\begin{figure}[h!]
+    \centering %left, lower, right, upper
+    \includegraphics[trim={0cm 0cm 0cm 0cm},clip,width=\textwidth]{Code/Saved_Figures/}
+    \caption{hi}
+    \label{SMALL_embeddding_ks_ch1}
+\end{figure}
+
+Perplexity 40 is chosen since the result is a nice cluster with clearly seperated blue and red galaxies (see figure \ref{SMALL_embeddding_ks_ch1}). Additionally the n-iter ended up 6349 whcih is less than max-iter of 10000, meaning that the embedding converged. Peplexity 80 and 100 also converged but the original paper \cite{Maaten_2008_tSNE} suggests choosing perplexities between 5 and 50. All perplexities tested is seen in appendix along with the color between the other bands.
 
 \subsection{Classification / Identifying Promising Candidates}
 \begin{itemize}
