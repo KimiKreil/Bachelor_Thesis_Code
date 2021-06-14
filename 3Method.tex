@@ -1,8 +1,23 @@
 \section{Method}
-\subsection{Fitting Models to Galaxy Profiles in Order to Create a Residual Map}
-First of all: find better subtitles.
+\subsection{Producing a Residual Map and Performing Source Detection}
+A residual map is produced by modelling the light profiles of the detected sources and subtracting them from the scientific telescope image. Both the COSMOS 2015 and 2020 contain the information necessary to compute a residual map, but differs in their method of performing source extraction and thus also in their method of modelling sources. \\
+
+In the COSMOS 2015 catalogue the object photometry is carried out using the source extraction software SExtractor \cite{SExtractor_1996}. To understand how the software works I performed source detection using SEP \cite{SEP_2018} (a Python wrapper for SExtractor) on the telescope images from three bands: two optical bands ($g$ and $i$) from HSC\footnote{The Hypersurprime Carema mounted on Subaru} and the near-IR band $Ks$ from VISTA\footnote{The Visible and Infrared Survey Telescope for Astronomy}. The code is available in the notebook \textcolor{darkgray}{2\_SEP\_starfinder\_cutouts\_and\_matching\_mag.ipynb} in the linked repository. \textcolor{red}{Should I even reference to the code like this or is it unnecessary?} \textcolor{blue}{better filenames}. To perform proper source detection, multiple steps are involved: background estimation, detection thresholds and aperture photometry. First we need to produce background estimation, since each pixel in a telescope image is the sum of background noise and flux from the object we are interested in. Background estimation consists of creating a background noise map, mapping the background flux level in different areas of the image. Subtracting this background map, we can thus produce a "clean" image, where the background is $\sim 0$ native flux units so the pixel flux values within a source only includes the flux we are interested in. There are two main parameters that control the detection of sources: the deblending threshold and the flux threshold. The deblending threshold controls when to split objects that are very close in the image, and the flux treshold determines the signal to noise ratio (S/N) required for a detection. For example a very low flux threshold will lead to the detection of spurious objects while a high threshold will overlook fainter objects. These steps will provide the coordinates of the detected objects along with a peak flux corresponding  to the value of the pixel with the highest flux. To find the integrated flux and the magnitude of the objects aperture photometry is used. The COSMOS 2015 catalogue uses fixed apertures diameters of respectively 2'' and 3'', and computes the total flux as the sum of all pixels within the aperture in the cleaned image (where the background map is subtracted). Another option is to use variant apertures depending on the size of the sources, which is what i used in my code. I computed the aperture diameter using the limits \textcolor{darkgray}{xmax, xmin, ymax} and \textcolor{darkgray}{ymin} from the SEP output to find the mean extent of the source in the two axis. The AB magnitude is found with the formula\footnote{Refer to p. 29 in the MBW book}:
+\begin{equation}
+    m_X = -2.5\log_{10}(F_X) + m_{0,X}
+\end{equation}
+
+
+
+\textcolor{blue}{continue to describe how we integrate by summing all pixels wihtin the aperture of a defined size or variant size, and how it is converted to magnitudes using the zero point mag converting from native units to physical units and how the formula looks. I compared my values to the catalgoue and they agreed = success} 
+
+
+\textcolor{red}{How do we actually model the image with this information. I assume point source modelling is used, while we know the flux we can normalise the function to fit the source but how do we know the extent of the source etc. ?}
+
+
 \begin{itemize}
-    \item Describe (very briefly) how the FARMER model parameters are found and adding a reference to Johns paper - something something with many gaussians.
+    \item SEP to find sources in the telescope img. Briefly mention aperture photometry (which is used in Laigle et al. 2016 -- COSMOS2015) and the fact you did measure aper photometry by yourself as sanity check. However, aper photometry has limitations bla bla bla hence the need for a different approach (Tractor/Farmer)
+    \item Describe (very briefly) how the FARMER model parameters are found and adding a reference to Johns paper - something something with many gaussians. 
     \item Describe (again briefly) what the Sersic profile is.
     \item Describe the 5 models we use (exponential, devaucouleur, point source etc.)
     \item Describe the convolution with the psf and why we do it.

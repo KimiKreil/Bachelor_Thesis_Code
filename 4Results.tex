@@ -38,13 +38,6 @@
     \label{SMALL_embeddding_ks_ch1}
 \end{figure}
 
-\begin{figure}[h!]
-    \centering %left, lower, right, upper
-    \includegraphics[trim={0cm 0cm 0cm 0cm},clip,width=\textwidth]{Code/Saved_Figures/}
-    \caption{hi}
-    \label{SMALL_embeddding_ks_ch1}
-\end{figure}
-
 Perplexity 40 is chosen since the result is a nice cluster with clearly seperated blue and red galaxies (see figure \ref{SMALL_embeddding_ks_ch1}). Additionally the n-iter ended up 6349 whcih is less than max-iter of 10000, meaning that the embedding converged. Peplexity 80 and 100 also converged but the original paper \cite{Maaten_2008_tSNE} suggests choosing perplexities between 5 and 50. All perplexities tested is seen in appendix along with the color between the other bands.
 
 \subsection{Classification / Identifying Promising Candidates}
@@ -54,3 +47,10 @@ Perplexity 40 is chosen since the result is a nice cluster with clearly seperate
     \item Produce the plot we talked about in mondays meeting similar to figure 4 in \cite{Steinhardt_2020}. A plot as a function of fmin showing contamination and the size of each population (good and bad) acompanied with a ROC curve.
     \item Include the SED plots, and show that our candidates look as we expect. Faint in H and K and more bright in ch1 and ch2.
 \end{itemize}
+
+\begin{figure}[h!]
+    \centering %left, lower, right, upper
+    \includegraphics[trim={0cm 0cm 0cm 0cm},clip,width=\textwidth]{Code/Saved_Figures/Visual_inspection_embedding.pdf}
+    \caption{hi}
+    \label{embedding_regions}
+\end{figure}
