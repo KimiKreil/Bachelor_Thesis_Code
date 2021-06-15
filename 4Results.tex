@@ -44,33 +44,31 @@ Performing source detection with SEP on an IRAC residual map, we identify 3139 o
     \label{SMALL_embeddding_ks_ch1}
 \end{figure}
 
-From manual visual inspection of the four bands, we label tracers of NIR dropouts.
-
-the objects detected
+From manual visual inspection of the four bands, we labelled the best tracers of NIR dropouts. Furthermore we matched the coordinates of the detected objects in the residual map with the coordinates from the sources in the COSMOS 2020 Classic catalogue, to identify detection due to leftover flux in the residual map. The dense cluster located to the right in the middle plot in fig. \ref{SMALL_embeddding_ks_ch1}, is also explored, and mapping the fluxes we find that these are particular bright sources. In fig. \ref{embedding_regions} these regions are explored by plotting a cutouts from objects in each region. This figure also shows the cutouts for an object that was mapped far away from the others, it is however deemed to be of no interest for our purpose.
 
 \begin{figure}[]
     \centering %left, lower, right, upper
     \includegraphics[trim={0cm 0cm 0cm 0cm},clip,width=\textwidth]{Code/Saved_Figures/Visual_inspection_embedding.pdf}
-    \caption{hi}
+    \caption{The main plot shows the t-SNE embedding for perplexity 40, where objects in different regions are marked. The telescope images of an object in each region is also plottet, where the colourbar is restrained to the minimum and maximum flux detected for the object shown in the tracer region.}
     \label{embedding_regions}
 \end{figure}
 
-\begin{itemize}
-    \item Describe our use of tracers - how many good ones were there and a few stats.
-    \item Show the results on the chosen perplexity. Main plot = t-SNE embedding where the matched objects, good candidates and fluxes above some threshold is colormapped. This allows us to mark three regions, and we display cutouts from at least one object in each region as subplots around the embedding plot.
-\end{itemize}
-
 \subsection{Predictions}
-\begin{itemize}
-    \item Show the classifications on the embedding. Two subplots, one showing the embedding colores according to the labels that are known to the algorithm and one according to the predicted labels.
-    \item Acompany this with a score metric. Accuracy, contamination rate and a confusion matrix are good scores to show. And write which parameters where chosen, what is k, what is fmin and so on.
-    \item Produce the plot we talked about in mondays meeting similar to figure 4 in \cite{Steinhardt_2020}. A plot as a function of fmin showing contamination and the size of each population (good and bad) acompanied with a ROC curve.
-    \item Include the SED plots, and show that our candidates look as we expect. Faint in H and K and more bright in ch1 and ch2.
-\end{itemize}
+To produce predictions and perform validation we split all the labelled objects (including tracers) intro two sets. In total we use 1069 objects labelled as non NIR-dropouts and 133 tracers. To produce predictions, respectively 1025 and 90 non dropouts and tracers are used, while respectively 44 and 43 are used for validation of the method. The validation sample is selected so it balances the two possible outputs. We ran the classification code on the training sample, which in addition to the labelled objects also includes unknown objects, with $k=15$ neighbours and 100 values of $f_min$ between 0 and 1, producing the results displayed in the first two left plots in fig. \ref{classification_plot}. The purity of the NIR dropout predictions was computed for each run of the classification. The parameters $f_{min}=0.47$ and $k=15$ produced the highest purity, found to be 86\%, and was therefore selected to produce the predictions displayed in the far right plot in fig. \ref{classification_plot}. \\
 
-\begin{figure}[h!]
+To inspect the results we plot the SED of the predicted NIR-dropouts, shown in fig. \textcolor{blue}{fignumber}. For comparison of different regions in the embedding, the SED for respectively the matched and bright objects shown in fig. \ref{embedding_regions} are also shown.
+
+\begin{figure}[]
     \centering %left, lower, right, upper
     \includegraphics[trim={3.5cm 0cm 4.5cm 0cm},clip,width=\textwidth]{Code/Saved_Figures/Classification_plot.pdf}
     \caption{hi}
     \label{classification_plot}
 \end{figure}
+
+
+
+
+\begin{itemize}
+    \item Include the SED plots, and show that our candidates look as we expect. Faint in H and K and more bright in ch1 and ch2.
+\end{itemize}
+
