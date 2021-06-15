@@ -1,59 +1,72 @@
 \section{Results}
 
-\subsection{Residual Map}
-\begin{itemize}
-    \item Show one of each of the type of models used to make the residual map. Possibly include the entire image in appendix or link to a fits file containing the image.
-    \item Stats from the modelling. How many of each type, which is the most common etc. How many models failed.
-    \item Mention the masks (maybe in method instead) covering bright spots that are not included in the cosmos catalogue since they were corrupt.
-    \item Think about running the source detection on this image as was the plan and provide some stats of the result.
-    \item Mention that we ended up using the residual image Iary made weighing the channel 1 and 2 images of IRAC. Explain quickly how this was made, and why we believe it to be more robust than the residual map I myself created. Elaborate on this in the discussion. The FARMER catalogue is still not finished developed
-\end{itemize} 
-
-\begin{wrapfigure}{r}{0.4\textwidth}
-    \centering %left, lower, right, upper
-    \includegraphics[trim={1cm 2.5cm 2cm 1.5cm},clip,width=0.38\textwidth]{Code/Saved_Figures/BAD_model_cutouts.pdf}
-    \caption{hi}
-    \label{BAD_Model_cutouts}  
-\end{wrapfigure}
+\subsection{Residual Map of an IRAC Image}
+We produced a residual map for tile7-7 in the IRAC ch1 telescope image. We adopted the model-based photometry method described in section 2.1 \textcolor{blue}{refer to the right section} for creating intrinsic light profiles of sources. The parameters used for the Sérsic profiles were extracted by Farmer from the optical-NIR images of COSMOS2020 and then included in the catalogue and the PSF for the IRAC camera \textcolor{blue}{reference} was used for convolution. In total we detected 9500 sources in the image and modelled 7173 of them, the vast majority of them being point source galaxies. The number of sources modelled with each profile type is reported in table \ref{Models_stat}. Here we also report the number of objects we had to remove from the modelling process due to illogical parameters. Examples of illogical parameters include negative fluxes, effective radii of zero extent (in the models using this parameter) or axis ratios above 10, which produced elliptical galaxies appearing as sharp unusually elongated lines. The number of flagged objects that were modelled are also reported. These are the models where the fitting in the Farmer tool did not converge. \\
+\begin{table}[]
+\begin{centering}
+\begin{tabular}{lllll}
+\hline
+\textbf{Model type} & \begin{tabular}[c]{@{}l@{}}Total number \\ of sources\end{tabular} & \begin{tabular}[c]{@{}l@{}}Number of removed \\ sources due to \\ illogical parameters\end{tabular} & \begin{tabular}[c]{@{}l@{}}Number of \\ sources modelled\end{tabular} & \begin{tabular}[c]{@{}l@{}}Number of \\ flagged objects\\ (of those that \\ are modelled)\end{tabular} \\ \hline
+Point Source & 6844 & 1635 & 5209 & 69 \\
+Simple & 188 & 57 & 131 & 6 \\
+Exponential & 1782 & 432 & 1350 & 17 \\
+De Vaucouleur & 517 & 198 & 319 & 17 \\
+Composite & 169 & 5 & 164 & 0 \\ \hline
+\textbf{Sum} & 9500 & 2327 & 7173 & 109 \\ \hline
+\end{tabular}
+\end{centering}
+\caption{Overview of the number of sources modelled in tile 7-7 of the IRAC ch1 telescope image with parameters extracted from Farmer. Columns from left to right: (1) The model type used, (2) Total number of detected sources, (3) Number of objects that had to be removed when performing a sanity check, (4) Number of sources left, that were actually modelled, (5) The number of objects that were modelled even though the fitting process in Farmer failed to converge.}
+\label{Models_stat}
+\end{table}
 
 \begin{figure}[h!]
     \centering
     \includegraphics[trim={3cm 2.5cm 5cm 1.5cm},clip,scale=0.5]{Code/Saved_Figures/Model_cutouts.pdf}
-    \caption{hi}
+    \caption{\textcolor{blue}{write caption}}
     \label{Model_cutouts}
 \end{figure}
 
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering %left, lower, right, upper
+    \includegraphics[trim={1cm 2.5cm 2cm 1.5cm},clip,width=0.38\textwidth]{Code/Saved_Figures/BAD_model_cutouts.pdf}
+    \caption{\textcolor{blue}{write caption}}
+    \label{BAD_Model_cutouts}  
+\end{wrapfigure}
+
+We produced a combined model image by adding the convoluted source models to a background of zero, placing the centre of each model at the centroid coordinates reported in the COSMOS 2020 Classic catalogue. A one arcsec$^2$ section of the resulting residual image is displayed alongside the same region in the telescope image in fig. \ref{Comparing_residual_maps} in the appendix \textcolor{blue}{change plot, github is not working due to an update so will be changed soon} \textcolor{red}{should i link to the fits file created and stored in github}. An example where the modelling performed well and produced a good residual, for each model type, is displayed in fig. \ref{Model_cutouts}. Similarly, two examples, where the residuals were bad, are displayed in fig. \ref{BAD_Model_cutouts}.
+
 \subsection{Dimensionality Reduction}
+Performing source detection with SEP on an IRAC residual map, we identify 3139 objects. The residual map used is developed by Iary Davidzon (NBI) with the use of aperture photometry and the software IRACCLEAN \cite{Hsieh_2012_IRACCLEAN}. A residual catalogue is created, containing  information about the detected sources along with telescope images (21$\times$21 pixels \textcolor{blue}{convert to arcseconds}) in four bands: $H$, $Ks$, $ch1$ and $ch2$. These images are used as the input for the t-SNE method, described in section 2.2.1 \textcolor{blue}{check we refer to right section}, to create a 2d embedding of the sample of objects. To select an appropriate perplexity value, the embedding is computed for multiple values of the hyper parameter. The embedding results, from all perplexities explored, are displayed in fig. \ref{embeddding_H_ks}, \ref{embeddding_ks_ch1}, and \ref{embeddding_ch1_ch2} in the appendix, where the colours between each consecutive band are mapped. In fig. \ref{SMALL_embeddding_ks_ch1} a few select embeddings are plotted. Here the colour $Ks-ch1$ is used to colour map the sample, since this is where we search for dropouts. The colour is defined as the difference in magnitude between two bands \footnote{reference to MBW book}. Due to negative flux values, the magnitudes are sometimes undefined. These objects are assigned another colour in the plot, depending on which band the problem occurred in, so as to be able to distinguish them from the non problematic cases. We chose to continue with a perplexity of 40, since it is in the suggested range between 1 and 50 and it produces a useful clustering with a well separated cluster to the right. Furthermore the embedding was obtained with 6349 iterations which is lower than the maximum number of iterations set to 1000, hence the method has converged.
+\begin{figure}[]
+    \centering %left, lower, right, upper
+    \includegraphics[trim={5cm 0cm 5cm 0.5cm},clip,width=\textwidth]{Code/Saved_Figures/peplex_Ks_ch1_SMALL.pdf}
+    \caption{The t-SNE embedding results for three different perplexities. All embedding has a maximum number of iterations set to 1000. $n_iter$ reports the number of iterations actually used.}
+    \label{SMALL_embeddding_ks_ch1}
+\end{figure}
+
+From manual visual inspection of the four bands 
+
+the objects detected
+
+\begin{figure}[]
+    \centering %left, lower, right, upper
+    \includegraphics[trim={0cm 0cm 0cm 0cm},clip,width=\textwidth]{Code/Saved_Figures/Visual_inspection_embedding.pdf}
+    \caption{hi}
+    \label{embedding_regions}
+\end{figure}
+
 \begin{itemize}
-    \item t-SNE embedding plot with varying perplexities and colors (blue-red) colormapped. Describe the corrupted flux marked in another color. Include the most interesting one - "k-c1" here, "h-k" and "ch1-ch2" can be added in the appendix.
-    \item Describe why that perplexity is chosen. Describe the color distribution. There are two outliers or so that fall distant from the main cluster, quickly look to these and describe why we omit them from the analysis.
     \item Describe our use of tracers - how many good ones were there and a few stats.
     \item Show the results on the chosen perplexity. Main plot = t-SNE embedding where the matched objects, good candidates and fluxes above some threshold is colormapped. This allows us to mark three regions, and we display cutouts from at least one object in each region as subplots around the embedding plot.
 \end{itemize}
 
-\begin{figure}[h!]
-    \centering %left, lower, right, upper
-    \includegraphics[trim={5cm 0cm 5cm 0.5cm},clip,width=\textwidth]{Code/Saved_Figures/peplex_Ks_ch1_SMALL.pdf}
-    \caption{hi}
-    \label{SMALL_embeddding_ks_ch1}
-\end{figure}
-
-Perplexity 40 is chosen since the result is a nice cluster with clearly seperated blue and red galaxies (see figure \ref{SMALL_embeddding_ks_ch1}). Additionally the n-iter ended up 6349 whcih is less than max-iter of 10000, meaning that the embedding converged. Peplexity 80 and 100 also converged but the original paper \cite{Maaten_2008_tSNE} suggests choosing perplexities between 5 and 50. All perplexities tested is seen in appendix along with the color between the other bands.
-
-\subsection{Classification / Identifying Promising Candidates}
+\subsection{Predictions}
 \begin{itemize}
     \item Show the classifications on the embedding. Two subplots, one showing the embedding colores according to the labels that are known to the algorithm and one according to the predicted labels.
     \item Acompany this with a score metric. Accuracy, contamination rate and a confusion matrix are good scores to show. And write which parameters where chosen, what is k, what is fmin and so on.
     \item Produce the plot we talked about in mondays meeting similar to figure 4 in \cite{Steinhardt_2020}. A plot as a function of fmin showing contamination and the size of each population (good and bad) acompanied with a ROC curve.
     \item Include the SED plots, and show that our candidates look as we expect. Faint in H and K and more bright in ch1 and ch2.
 \end{itemize}
-
-\begin{figure}[h!]
-    \centering %left, lower, right, upper
-    \includegraphics[trim={0cm 0cm 0cm 0cm},clip,width=\textwidth]{Code/Saved_Figures/Visual_inspection_embedding.pdf}
-    \caption{hi}
-    \label{embedding_regions}
-\end{figure}
 
 \begin{figure}[h!]
     \centering %left, lower, right, upper
