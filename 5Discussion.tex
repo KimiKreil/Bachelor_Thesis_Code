@@ -1,4 +1,7 @@
 \section{Discussion}
+
+There are, however, some limitations to aperture photometry and the residual map it produces. All sources in the image are modelled individually with a point source model, where the flux is a free parameter that rescales the profile to fit the source. The flux used is the total flux within a fixed aperture, hence the aperture size is an assumption we enforce on all sources, although an adaptive aperture may have been more appropriate. This is not always a problem as long as the aperture size is relatively large, including all flux intrinsic to the source, and the surrounding is background which values are centred around zero. The problem arises when there is a  blended pair of galaxies, and the intrinsic flux cannot be properly estimated or divided between the sources. To address the drawbacks of aperture photometry, we explore a different approach of creating a residual image.
+
 \begin{itemize}
     \item What are pros and cons of the Farmer method? Is the Farmer residual image better than Iary's old one?
     \item Is ML really better than visual classification? pros and cons of t-SNE.
